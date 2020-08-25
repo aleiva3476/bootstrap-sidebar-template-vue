@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba Grid</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <main>
+        <header>
+            <h1>Header</h1>
+        </header>
+        <aside>
+            <nav class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <a href="#" class="ml-4"><img src="img/logo.png" alt=""></a>
+                    <i class="btn-sidebar-close mdi mdi-close-thick mdi-24px"></i>
+                </div>
+                <div class="sidebar-content">
+                    <ul>
+                        <li v-for="opt in options" :class="{'header-menu':opt.isHeader, 'sidebar-dropdown':opt.items}">
+                            <!-- Group Header -->
+                            <span v-if="opt.isHeader">{{opt.text}}</span>
+                            <!-- Option with subitems -->
+                            <a v-if="opt.items" :href="opt.href">
+                                <i class="mdi mdi-18px" :class="opt.iconClass"></i>
+                                <span class="menu-text">{{opt.text}}</span>
+                                <span v-if="opt.badgeText" :class="opt.badgeClass">{{opt.badgeText}}</span>
+                            </a>
+                            <div class="sidebar-submenu" v-if="opt.items">
+                                <ul>
+                                    <li v-for="item in opt.items">
+                                        <a :href="item.href">
+                                            {{item.text}}
+                                            <span v-if="item.badgeText" :class="item.badgeClass">{{item.badgeText}}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Option without subitems -->
+                            <a v-if="!opt.isHeader && !opt.items" :href="opt.href">
+                                <i class="mdi mdi-18px" :class="opt.iconClass"></i>
+                                <span class="menu-text">{{opt.text}}</span>
+                                <span v-if="opt.badgeText" :class="opt.badgeClass">{{opt.badgeText}}</span>
+                            </a>
+                        </li>
+                        <!-- <li class="header-menu">
+                            <span>General</span>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="mdi mdi-monitor-dashboard mdi-18px"></i>
+                                <span class="menu-text">Dashboard</span>
+                                <span class="badge badge-pill badge-warning">New</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li><a href="#">Dashboard v.1</a></li>
+                                    <li><a href="#">Dashboard v.2</a></li>
+                                    <li><a href="#">Dashboard v.3<span class="badge badge-pill badge-success">Pro</span></a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="sidebar-dropdown">
+                            <a href="#">
+                                <i class="mdi mdi-cart mdi-18px"></i>
+                                <span class="menu-text">E-commerce</span>
+                                <span class="badge badge-pill badge-danger">3</span>
+                            </a>
+                            <div class="sidebar-submenu">
+                                <ul>
+                                    <li><a href="#">Products</a></li>
+                                    <li><a href="#">Orders</a></li>
+                                    <li><a href="#">Invoices</a></li>
+                                    <li><a href="#">Credit cart</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="mdi mdi-card-account-details-outline mdi-18px"></i>
+                                <span class="menu-text">Contacts</span>
+
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="mdi mdi-book mdi-18px"></i>
+                                <span class="menu-text">Projects</span>
+
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="mdi mdi-folder mdi-18px"></i>
+                                <span class="menu-text">Documents</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="mdi mdi-calendar mdi-18px"></i>
+                                <span class="menu-text">Calendar</span>
+                                <span class="badge badge-pill badge-primary">Beta</span>
+                            </a>
+                        </li> -->
+                    </ul>
+                </div>
+                <div class="sidebar-footer">
+                    <div class="dropdown">
+                        <a href="#" :data-toggle="notifications.length ? 'dropdown' : ''" aria-haspopup="true" aria-expanded="false" data-offset="0,10">
+                            <i class="mdi mdi-bell mdi-18px"></i>
+                            <span class="badge badge-pill badge-warning" v-if="notifications.length">{{notifications.length}}</span>
+                        </a>
+                        <div class="dropdown-menu notifications" v-if="notifications.length">
+                            <div class="notifications-header">
+                                <i class="mdi mdi-bell"></i>
+                                Notifications
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" v-for="note in notifications" :href="note.href">
+                                <div class="notification-content">
+                                    <div class="icon">
+                                        <i :class="note.iconClass"></i>
+                                    </div>
+                                    <div class="content">
+                                        <div class="notification-detail">{{note.detail}}</div>
+                                        <div class="notification-time">{{note.time}}</div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-center" href="#">View all notifications</a>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <a href="#" :data-toggle="messages.length ? 'dropdown' : ''" aria-haspopup="true" aria-expanded="false" data-offset="0,10">
+                            <i class="mdi mdi-email mdi-18px"></i>
+                            <span class="badge badge-pill badge-success" v-if="messages.length">{{messages.length}}</span>
+                        </a>
+                        <div class="dropdown-menu messages" v-if="messages.length">
+                            <div class="messages-header">
+                                <i class="mdi mdi-email"></i>
+                                Messages
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" v-for="msg in messages" :href="msg.href">
+                                <div class="message-content">
+                                    <div class="pic">
+                                        <img :src="msg.userImage" :alt="msg.userName">
+                                    </div>
+                                    <div class="content">
+                                        <div class="message-title"><strong>{{msg.userName}}</strong></div>
+                                        <div class="message-detail">{{msg.detail}}</div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-center" href="#">View all messages</a>
+                        </div>
+                    </div>
+                    <a href="#"><i class="mdi mdi-cog mdi-18px"></i> </a>
+                    <a href="#"><i class="mdi mdi-power mdi-18px"></i></a>
+                </div>
+            </nav>
+            <a class="btn-sidebar-show btn btn-sm btn-dark" href="#">
+                <i class="mdi mdi-menu"></i>
+            </a>
+        </aside>
+        <article>
+            <button type="button" class="btn btn-primary btn-lg" id="btn-show"><i class="mdi mdi-eye-outline mr-3"></i>Show</button>
+            <button type="button" class="btn btn-primary btn-lg" id="btn-hide"><i class="mdi mdi-eye-off-outline mr-3"></i>Hide</button>
+        </article>
+    </main>
+    <script src="js/sidebar.js"></script>
+    <script src="js/sidebar-vue.js"></script>
+</body>
+</html>
